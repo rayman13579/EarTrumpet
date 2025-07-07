@@ -141,7 +141,6 @@ namespace EarTrumpet.UI.ViewModels
                     throw new NotImplementedException();
             }
 
-            UpdateTextVisibility();
             RaiseDevicesChanged();
         }
 
@@ -176,17 +175,7 @@ namespace EarTrumpet.UI.ViewModels
                     Devices.Add(foundAllDevice);
                 }
             }
-            UpdateTextVisibility();
             RaiseDevicesChanged();
-        }
-
-        private void UpdateTextVisibility()
-        {
-            // Show display name on only the "top" device, which handles Expanded and Collapsed.
-            for (var i = 0; i < Devices.Count; i++)
-            {
-                Devices[i].IsDisplayNameVisible = i > 0;
-            }
         }
 
         public void DoExpandCollapse()
@@ -219,7 +208,6 @@ namespace EarTrumpet.UI.ViewModels
                 }
             }
 
-            UpdateTextVisibility();
             RaiseDevicesChanged();
         }
 

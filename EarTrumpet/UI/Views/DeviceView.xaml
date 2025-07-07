@@ -32,18 +32,37 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Border Height="{DynamicResource Mutable_DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
-                        <TextBlock Text="{Binding Device.DisplayName}" TextTrimming="CharacterEllipsis">
-                            <TextBlock.Style>
-                                <Style BasedOn="{StaticResource DeviceTitleTextStyle}" TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsDisplayNameVisible}" Value="False">
-                                            <Setter Property="Visibility" Value="Collapsed" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+                    <Border Height="{DynamicResource Mutable_DeviceTitleCellHeight}" Margin="12, 0, 5, 0">
+                        <Grid Grid.Row="1" Height="{DynamicResource Mutable_DeviceItemCellHeight}" Background="Orange">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="{DynamicResource Mutable_VolumeCellWidth}" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding Device.DisplayName}" TextTrimming="CharacterEllipsis">
+                                <TextBlock.Style>
+                                    <Style BasedOn="{StaticResource DeviceTitleTextStyle}" TargetType="TextBlock">
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <Button Grid.Column="2"
+                                    Name="HideButton"
+                                    Width="32"
+                                    Height="32"
+                                    Margin="{StaticResource DeviceOrAppIconMargin}"
+                                    HorizontalAlignment="Center"
+                                    Background="Transparent"
+                                    Command="{Binding Device.ToggleMute}"
+                                    IsTabStop="False"
+                                    Opacity="1"
+                                    ToolTipService.ToolTip="{x:Static resx:Resources.ToggleHideToolTip}">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource HideButtonStyle}" TargetType="{x:Type Button}" >
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
                     </Border>
 
                     <Grid Grid.Row="1" Height="{DynamicResource Mutable_DeviceItemCellHeight}">

@@ -15,10 +15,6 @@ namespace EarTrumpet.UI.Views
         public static readonly DependencyProperty DeviceProperty =
             DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceView), new PropertyMetadata(new PropertyChangedCallback(DeviceChanged)));
 
-        public bool IsDisplayNameVisible { get { return (bool)GetValue(IsDisplayNameVisibleProperty); } set { SetValue(IsDisplayNameVisibleProperty, value); } }
-        public static readonly DependencyProperty IsDisplayNameVisibleProperty =
-            DependencyProperty.Register("IsDisplayNameVisible", typeof(bool), typeof(DeviceView), new PropertyMetadata(true));
-
         public bool IsAppListVisible { get { return (bool)GetValue(IsAppListVisibleProperty); } set { SetValue(IsAppListVisibleProperty, value); } }
         public static readonly DependencyProperty IsAppListVisibleProperty =
             DependencyProperty.Register("IsAppListVisible", typeof(bool), typeof(DeviceView), new PropertyMetadata(true));

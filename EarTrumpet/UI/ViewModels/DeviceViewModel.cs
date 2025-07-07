@@ -39,19 +39,6 @@ namespace EarTrumpet.UI.ViewModels
         public string InterfaceName => ((IAudioDeviceWindowsAudio)_device).InterfaceName;
         public ObservableCollection<IAppItemViewModel> Apps { get; }
 
-        public bool IsDisplayNameVisible
-        {
-            get => _isDisplayNameVisible;
-            set
-            {
-                if (_isDisplayNameVisible != value)
-                {
-                    _isDisplayNameVisible = value;
-                    RaisePropertyChanged(nameof(IsDisplayNameVisible));
-                }
-            }
-        }
-
         public DeviceIconKind IconKind
         {
             get => _iconKind;
@@ -68,7 +55,6 @@ namespace EarTrumpet.UI.ViewModels
         protected readonly IAudioDevice _device;
         protected readonly IAudioDeviceManager _deviceManager;
         protected readonly WeakReference<DeviceCollectionViewModel> _parent;
-        private bool _isDisplayNameVisible;
         private DeviceIconKind _iconKind;
 
         public DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)

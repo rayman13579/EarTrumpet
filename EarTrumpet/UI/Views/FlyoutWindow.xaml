@@ -29,7 +29,7 @@
         WindowStyle="None">
     <Window.Resources>
         <Style x:Key="ExpandCollapseButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Theme:Brush.Background" Value="FlyoutBackground" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Top" />
@@ -58,7 +58,7 @@
                 <MultiTrigger>
                     <MultiTrigger.Conditions>
                         <Condition Property="IsMouseOver" Value="True" />
-                        <Condition Property="Theme:OS.IsWindows11" Value="True" />
+                        <!--     <Condition Property="Theme:OS.IsWindows11" Value="True" />-->
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
                         <Setter Property="Theme:Brush.Background" Value="Theme=Control{Theme}SelectHighlightHover, HighContrast=Highlight" />
@@ -68,7 +68,7 @@
                 <MultiTrigger>
                     <MultiTrigger.Conditions>
                         <Condition Property="IsPressed" Value="True" />
-                        <Condition Property="Theme:OS.IsWindows11" Value="True" />
+                        <!--     <Condition Property="Theme:OS.IsWindows11" Value="True" />-->
                     </MultiTrigger.Conditions>
                     <MultiTrigger.Setters>
                         <Setter Property="Theme:Brush.Background" Value="Theme=Control{Theme}SelectHighlightHover/0.20, HighContrast=Highlight" />
@@ -88,12 +88,70 @@
         </Style>
         <DataTemplate DataType="{x:Type vm:DeviceViewModel}">
             <views:DeviceView Width="{StaticResource WindowAndItemSize}"
-                              Device="{Binding}"
-                              IsDisplayNameVisible="{Binding IsDisplayNameVisible}" />
+                              Device="{Binding}" />
         </DataTemplate>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
-        <ScrollViewer Name="BaseVisual" VerticalScrollBarVisibility="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="ExpandCollapseButton"
+                Grid.Row="0" 
+                Height="{DynamicResource Mutable_DeviceTitleCellHeight}"
+                Width="{StaticResource WindowAndItemSize}"
+                Command="{Binding ExpandCollapse}"
+                IsEnabled="{Binding CanExpand}">
+            <Button.Style>
+                <Style BasedOn="{StaticResource ExpandCollapseButtonStyle}" TargetType="{x:Type Button}">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding CanExpand}" Value="True" />
+                                <Condition Binding="{Binding IsExpanded}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="AutomationProperties.Name" Value="{x:Static resx:Resources.CollapseAccessibleText}" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding CanExpand}" Value="True" />
+                                <Condition Binding="{Binding IsExpanded}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="AutomationProperties.Name" Value="{x:Static resx:Resources.ExpandAccessibleText}" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Content>
+                <Grid>
+                    <TextBlock Margin="{StaticResource WindowMargin}"
+                               Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
+                               FontSize="{DynamicResource Mutable_ExpandCollapseButtonGlyphFontSize}">
+                        <TextBlock.Style>
+                            <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding CanExpand}" Value="True" />
+                                            <Condition Binding="{Binding IsExpanded}" Value="True" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Text" Value="&#xe011;" />
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding CanExpand}" Value="True" />
+                                            <Condition Binding="{Binding IsExpanded}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Text" Value="&#xe010;" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </Button.Content>
+        </Button>
+        <ScrollViewer Grid.Row="1" Name="BaseVisual" VerticalScrollBarVisibility="Auto">
             <Grid Name="ContentGrid" VerticalAlignment="Top">
 
                 <Border VerticalAlignment="Center" Theme:Brush.Background="FlyoutBackground">
@@ -127,65 +185,6 @@
                                   FocusVisualStyle="{x:Null}"
                                   IsTabStop="False"
                                   ItemsSource="{Binding Devices}" />
-                    <Button Height="{DynamicResource Mutable_DeviceTitleCellHeight}"
-                            Command="{Binding ExpandCollapse}"
-                            IsEnabled="{Binding CanExpand}">
-                        <Button.Style>
-                            <Style BasedOn="{StaticResource ExpandCollapseButtonStyle}" TargetType="{x:Type Button}">
-                                <Style.Triggers>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding CanExpand}" Value="True" />
-                                            <Condition Binding="{Binding IsExpanded}" Value="True" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="AutomationProperties.Name" Value="{x:Static resx:Resources.CollapseAccessibleText}" />
-                                    </MultiDataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding CanExpand}" Value="True" />
-                                            <Condition Binding="{Binding IsExpanded}" Value="False" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="AutomationProperties.Name" Value="{x:Static resx:Resources.ExpandAccessibleText}" />
-                                    </MultiDataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.Content>
-                            <Grid>
-                                <TextBlock Margin="12,0,32,0"
-                                           HorizontalAlignment="Left"
-                                           Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
-                                           Style="{StaticResource DeviceTitleTextStyle}"
-                                           Text="{Binding DeviceNameText}"
-                                           TextTrimming="CharacterEllipsis" />
-                                <TextBlock Margin="{StaticResource WindowMargin}"
-                                           HorizontalAlignment="Right"
-                                           Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
-                                           FontSize="{DynamicResource Mutable_ExpandCollapseButtonGlyphFontSize}">
-                                    <TextBlock.Style>
-                                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
-                                            <Style.Triggers>
-                                                <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding CanExpand}" Value="True" />
-                                                        <Condition Binding="{Binding IsExpanded}" Value="True" />
-                                                    </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Text" Value="&#xe011;" />
-                                                </MultiDataTrigger>
-                                                <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding CanExpand}" Value="True" />
-                                                        <Condition Binding="{Binding IsExpanded}" Value="False" />
-                                                    </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Text" Value="&#xe010;" />
-                                                </MultiDataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
                 </Grid>
             </Grid>
         </ScrollViewer>

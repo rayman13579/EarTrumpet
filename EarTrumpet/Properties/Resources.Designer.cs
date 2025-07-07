@@ -1548,6 +1548,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide device.
+        /// </summary>
+        public static string ToggleHideToolTip {
+            get {
+                return ResourceManager.GetString("ToggleHideToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toggle mute.
         /// </summary>
         public static string ToggleMuteToolTip {

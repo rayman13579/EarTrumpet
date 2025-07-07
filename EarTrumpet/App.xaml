@@ -291,6 +291,26 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            <Style x:Key="HideButtonStyle"
+                   BasedOn="{StaticResource CaptionButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="Margin" Value="0,1,0,0" />
+         <!--       <Setter Property="b:ButtonEx.ClickAction" Value="Close" /> -->
+                <Setter Property="Content" Value="&#xE7B3;" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True">
+                        <Setter Property="Content" Value="&#xE7B3;" />
+                    </DataTrigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
+                        <Setter Property="Theme:Brush.Background" Value="Theme=#FFE81123, HighContrast=Highlight" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Theme:Brush.Foreground" Value="Light=Text, Dark=ApplicationTextLightTheme, HighContrast=HighlightText" />
+                        <Setter Property="Theme:Brush.Background" Value="Theme=#F1707A, HighContrast=Highlight" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
             <Style x:Key="MinimizeButton"
                    BasedOn="{StaticResource CaptionButtonStyle}"
                    TargetType="Button">
