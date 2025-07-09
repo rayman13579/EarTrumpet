@@ -33,10 +33,9 @@
                     </Grid.RowDefinitions>
 
                     <Border Height="{DynamicResource Mutable_DeviceTitleCellHeight}" Margin="12, 0, 5, 0">
-                        <Grid Grid.Row="1" Height="{DynamicResource Mutable_DeviceItemCellHeight}" Background="Orange">
+                        <Grid Grid.Row="1" Height="{DynamicResource Mutable_DeviceItemCellHeight}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="10" />
                                 <ColumnDefinition Width="{DynamicResource Mutable_VolumeCellWidth}" />
                             </Grid.ColumnDefinitions>
 
@@ -53,14 +52,31 @@
                                     Margin="{StaticResource DeviceOrAppIconMargin}"
                                     HorizontalAlignment="Center"
                                     Background="Transparent"
-                                    Command="{Binding Device.ToggleMute}"
+                                    Command="{Binding Device.ToggleHidden}"
                                     IsTabStop="False"
                                     Opacity="1"
                                     ToolTipService.ToolTip="{x:Static resx:Resources.ToggleHideToolTip}">
                                 <Button.Style>
-                                    <Style BasedOn="{StaticResource HideButtonStyle}" TargetType="{x:Type Button}" >
-                                    </Style>
+                                    <Style BasedOn="{StaticResource HideButtonStyle}" TargetType="{x:Type Button}" />
                                 </Button.Style>
+                                <Button.Content>
+                                    <Grid>
+                                        <TextBlock Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}" FontSize="{DynamicResource Mutable_DeviceVolumeTextFontSize}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Device.IsHidden}" Value="true">
+                                                            <Setter Property="Text" Value="&#xE74F;" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Device.IsHidden}" Value="false">
+                                                            <Setter Property="Text" Value="&#xE767;" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Button.Content>
                             </Button>
                         </Grid>
                     </Border>

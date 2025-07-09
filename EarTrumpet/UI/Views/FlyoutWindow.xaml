@@ -98,10 +98,10 @@
         </Grid.RowDefinitions>
         <Button x:Name="ExpandCollapseButton"
                 Grid.Row="0" 
-                Height="{DynamicResource Mutable_DeviceTitleCellHeight}"
+                Height="22"
                 Width="{StaticResource WindowAndItemSize}"
                 Command="{Binding ExpandCollapse}"
-                IsEnabled="{Binding CanExpand}">
+                IsEnabled="{Binding CanExpand}" >
             <Button.Style>
                 <Style BasedOn="{StaticResource ExpandCollapseButtonStyle}" TargetType="{x:Type Button}">
                     <Style.Triggers>
@@ -111,6 +111,7 @@
                                 <Condition Binding="{Binding IsExpanded}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="AutomationProperties.Name" Value="{x:Static resx:Resources.CollapseAccessibleText}" />
+                            <Setter Property="ToolTipService.ToolTip" Value="{x:Static resx:Resources.CollapseToolTip}" />
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -118,6 +119,7 @@
                                 <Condition Binding="{Binding IsExpanded}" Value="False" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="AutomationProperties.Name" Value="{x:Static resx:Resources.ExpandAccessibleText}" />
+                            <Setter Property="ToolTipService.ToolTip" Value="{x:Static resx:Resources.ExpandToolTip}" />
                         </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -151,7 +153,7 @@
                 </Grid>
             </Button.Content>
         </Button>
-        <ScrollViewer Grid.Row="1" Name="BaseVisual" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" Name="BaseVisual" VerticalScrollBarVisibility="Hidden">
             <Grid Name="ContentGrid" VerticalAlignment="Top">
 
                 <Border VerticalAlignment="Center" Theme:Brush.Background="FlyoutBackground">

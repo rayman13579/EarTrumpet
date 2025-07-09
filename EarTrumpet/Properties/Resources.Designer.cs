@@ -376,6 +376,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collapse.
+        /// </summary>
+        public static string CollapseToolTip {
+            get {
+                return ResourceManager.GetString("CollapseToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Community settings.
         /// </summary>
         public static string CommunitySettingsPageText {
@@ -671,6 +680,15 @@ namespace EarTrumpet.Properties {
         public static string ExpandAccessibleText {
             get {
                 return ResourceManager.GetString("ExpandAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand.
+        /// </summary>
+        public static string ExpandToolTip {
+            get {
+                return ResourceManager.GetString("ExpandToolTip", resourceCulture);
             }
         }
         

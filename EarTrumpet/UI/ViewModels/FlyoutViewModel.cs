@@ -184,23 +184,21 @@ namespace EarTrumpet.UI.ViewModels
             _settings.IsExpanded = IsExpanded;
             if (IsExpanded)
             {
-                // Add any that aren't existing.
+                Devices.Clear();
                 foreach (var device in _mainViewModel.AllDevices)
                 {
-                    if (!Devices.Contains(device))
-                    {
-                        device.Apps.CollectionChanged += Apps_CollectionChanged;
-                        Devices.Insert(0, device);
-                    }
+                    device.Apps.CollectionChanged += Apps_CollectionChanged; 
+                    Devices.Insert(0, device);
                 }
+                Devices.Move(Devices.IndexOf(_mainViewModel.Default), Devices.Count - 1);
             }
             else
             {
-                // Remove all but the default.
+                // Remove all hidden devices.
                 for (int i = Devices.Count - 1; i >= 0; i--)
                 {
                     var device = Devices[i];
-                    if (device.Id != _mainViewModel.Default?.Id)
+                    if (device.IsHidden)
                     {
                         device.Apps.CollectionChanged -= Apps_CollectionChanged;
                         Devices.Remove(device);

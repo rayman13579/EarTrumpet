@@ -293,6 +293,12 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="ToggleHideToolTip" xml:space="preserve">
     <value>Hide device</value>
   </data>
+  <data name="CollapseToolTip" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="ExpandToolTip" xml:space="preserve">
+    <value>Expand</value>
+  </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
     <value>Privacy policy</value>
   </data>

@@ -1,11 +1,13 @@
 ﻿using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensions;
+using EarTrumpet.UI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -39,6 +41,21 @@ namespace EarTrumpet.UI.ViewModels
         public string InterfaceName => ((IAudioDeviceWindowsAudio)_device).InterfaceName;
         public ObservableCollection<IAppItemViewModel> Apps { get; }
 
+        public Boolean IsHidden
+        {
+            get => _isHidden;
+            set
+            {
+                if (_isHidden != value)
+                {
+                    _isHidden = value;
+                    RaisePropertyChanged(nameof(IsHidden));
+                }
+            }
+        }
+
+        public ICommand ToggleHidden { get; }
+
         public DeviceIconKind IconKind
         {
             get => _iconKind;
@@ -56,6 +73,7 @@ namespace EarTrumpet.UI.ViewModels
         protected readonly IAudioDeviceManager _deviceManager;
         protected readonly WeakReference<DeviceCollectionViewModel> _parent;
         private DeviceIconKind _iconKind;
+        private bool _isHidden;
 
         public DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {
@@ -73,6 +91,8 @@ namespace EarTrumpet.UI.ViewModels
             }
 
             UpdateMasterVolumeIcon();
+
+            ToggleHidden = new RelayCommand(() => IsHidden = !IsHidden);
         }
 
         ~DeviceViewModel()
