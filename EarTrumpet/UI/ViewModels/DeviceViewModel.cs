@@ -41,20 +41,33 @@ namespace EarTrumpet.UI.ViewModels
         public string InterfaceName => ((IAudioDeviceWindowsAudio)_device).InterfaceName;
         public ObservableCollection<IAppItemViewModel> Apps { get; }
 
-        public Boolean IsHidden
+        public bool IsPinned
         {
-            get => _isHidden;
+            get => _isPinned;
             set
             {
-                if (_isHidden != value)
+                if (_isPinned != value)
                 {
-                    _isHidden = value;
-                    RaisePropertyChanged(nameof(IsHidden));
+                    _isPinned = value;
+                    RaisePropertyChanged(nameof(IsPinned));
                 }
             }
         }
 
-        public ICommand ToggleHidden { get; }
+        public ICommand TogglePinned { get; }
+
+        public bool IsExpanded 
+            {
+            get => _isExpanded;
+            set
+            {
+                if (_isExpanded != value)
+                {
+                    _isExpanded = value;
+                    RaisePropertyChanged(nameof(IsExpanded));
+                }
+            }
+        }
 
         public DeviceIconKind IconKind
         {
@@ -73,7 +86,8 @@ namespace EarTrumpet.UI.ViewModels
         protected readonly IAudioDeviceManager _deviceManager;
         protected readonly WeakReference<DeviceCollectionViewModel> _parent;
         private DeviceIconKind _iconKind;
-        private bool _isHidden;
+        private bool _isPinned = true;
+        private bool _isExpanded;
 
         public DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {
@@ -92,7 +106,7 @@ namespace EarTrumpet.UI.ViewModels
 
             UpdateMasterVolumeIcon();
 
-            ToggleHidden = new RelayCommand(() => IsHidden = !IsHidden);
+            TogglePinned = new RelayCommand(() => IsPinned = !IsPinned);
         }
 
         ~DeviceViewModel()

@@ -290,8 +290,11 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Toggle mute</value>
   </data>
-  <data name="ToggleHideToolTip" xml:space="preserve">
-    <value>Hide device</value>
+  <data name="PinToolTip" xml:space="preserve">
+    <value>Device pinned</value>
+  </data>
+  <data name="UnpinToolTip" xml:space="preserve">
+    <value>Device unpinned</value>
   </data>
   <data name="CollapseToolTip" xml:space="preserve">
     <value>Collapse</value>

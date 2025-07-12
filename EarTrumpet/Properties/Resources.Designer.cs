@@ -999,6 +999,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Device pinned.
+        /// </summary>
+        public static string PinToolTip {
+            get {
+                return ResourceManager.GetString("PinToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Playback.
         /// </summary>
         public static string PlaybackDeviceGroupText {
@@ -1566,15 +1575,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hide device.
-        /// </summary>
-        public static string ToggleHideToolTip {
-            get {
-                return ResourceManager.GetString("ToggleHideToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toggle mute.
         /// </summary>
         public static string ToggleMuteToolTip {
@@ -1652,6 +1652,15 @@ namespace EarTrumpet.Properties {
         public static string TroubleshootEarTrumpetText {
             get {
                 return ResourceManager.GetString("TroubleshootEarTrumpetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device unpinned.
+        /// </summary>
+        public static string UnpinToolTip {
+            get {
+                return ResourceManager.GetString("UnpinToolTip", resourceCulture);
             }
         }
         

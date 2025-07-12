@@ -187,6 +187,7 @@ namespace EarTrumpet.UI.ViewModels
                 Devices.Clear();
                 foreach (var device in _mainViewModel.AllDevices)
                 {
+                    device.IsExpanded = IsExpanded;
                     device.Apps.CollectionChanged += Apps_CollectionChanged; 
                     Devices.Insert(0, device);
                 }
@@ -194,11 +195,12 @@ namespace EarTrumpet.UI.ViewModels
             }
             else
             {
-                // Remove all hidden devices.
+                // Remove all unpinned devices.
                 for (int i = Devices.Count - 1; i >= 0; i--)
                 {
                     var device = Devices[i];
-                    if (device.IsHidden)
+                    device.IsExpanded = IsExpanded;
+                    if (!device.IsPinned)
                     {
                         device.Apps.CollectionChanged -= Apps_CollectionChanged;
                         Devices.Remove(device);
